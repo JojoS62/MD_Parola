@@ -19,10 +19,16 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
-
+#ifndef __MBED__
 #include <MD_Parola.h>
 #include <MD_Parola_lib.h>
 #include <MD_MAX72xx.h>
+#else
+#include "mbed.h"
+#include "MD_Parola.h"
+#include "MD_Parola_lib.h"
+#include "MD_MAX72xx.h"
+#endif
 /**
  * \file
  * \brief Implements core MD_Parola class methods
