@@ -19,9 +19,18 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
+#ifndef __MBED__
 #include <MD_Parola.h>
 #include <MD_Parola_lib.h>
 #include <MD_MAX72xx.h>
+#else
+#include "MD_Parola.h"
+#include "MD_Parola_lib.h"
+#include "MD_MAX72xx.h"
+uint32_t millis() { 
+  return (uint32_t)rtos::Kernel::impl::get_tick_count();
+};
+#endif
 /**
  * \file
  * \brief Implements MD_PZone class methods
@@ -515,7 +524,7 @@ bool MD_PZone::zoneAnimate(void)
         setInitialConditions();
         _moveIn = true;
         // fall through to process the effect, first call will be with INITIALISE
-
+        // fall through
       default: // All state except END are handled by the special effect functions
         PRINT_STATE("ANIMATE");
         switch (_moveIn ? _effectIn : _effectOut)

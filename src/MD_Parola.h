@@ -395,8 +395,14 @@ takes about 1-2ms to update in the MD_MAX72XX display buffers.
 */
 #pragma once
 
+#ifndef __MBED__
 #include <Arduino.h>
 #include <MD_MAX72xx.h>
+#else
+#include "mbed.h"
+#include "platform/Stream.h"
+#include "MD_MAX72xx.h"
+#endif
 /**
  * \file
  * \brief Main header file for the MD_Parola library
@@ -1100,7 +1106,11 @@ private:
  * Core object for the Parola library.
  * This class contains one or more zones for display.
  */
+#ifndef __MBED__
 class MD_Parola : public Print
+#else
+class MD_Parola : public mbed::Stream
+#endif
 {
 public:
   /**

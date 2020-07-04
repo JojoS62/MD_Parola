@@ -50,15 +50,15 @@ switch (_fsmState)
   case GET_NEXT_CHAR:
   case PUT_CHAR:
     PRINT_STATE("IO RAND");
-    if (bIn) FSMPRINTS(" in"); else FSMPRINTS(" out");
+    if (bIn) FSMPRINTS(" in"); else { FSMPRINTS(" out"); }
 
     // Work out and set the next random pixel in the column mask.
     // Use a loop counter to make sure we just don't loop forever.
     _nextPos = 0;
     do
     {
-      c = random(RAND_CYCLE);
-      r = random(ROW_SIZE);
+      //c = random(RAND_CYCLE); TODO: implement random
+      //r = random(ROW_SIZE);
       _nextPos++;
     } while (pix[c] & (1 << r) && _nextPos < 5000);
 
