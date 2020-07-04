@@ -1981,6 +1981,11 @@ public:
   */
   virtual size_t write(const uint8_t *buffer, size_t size);
 
+  #ifdef __MBED__
+  virtual int _putc(int c) { write((uint8_t)c); return c; };
+  virtual int _getc() { return 0; };
+  #endif
+
   /** @} */
 
   private:
