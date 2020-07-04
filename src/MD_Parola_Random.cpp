@@ -20,8 +20,24 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#ifndef __MBED__
 #include <MD_Parola.h>
 #include <MD_Parola_lib.h>
+#else
+#include "MD_Parola.h"
+#include "MD_Parola_lib.h"
+// Arduino function, missing in Mbed
+static long random( long howbig )
+{
+  if ( howbig == 0 )
+  {
+    return 0;
+  }
+
+  return rand() % howbig;
+}
+#endif
+
 /**
  * \file
  * \brief Implements random effect
@@ -45,7 +61,7 @@ switch (_fsmState)
 
     _fsmState = PUT_CHAR;
     // fall through to next state
-
+    // fall through
   case GET_FIRST_CHAR:
   case GET_NEXT_CHAR:
   case PUT_CHAR:
@@ -57,8 +73,8 @@ switch (_fsmState)
     _nextPos = 0;
     do
     {
-      //c = random(RAND_CYCLE); TODO: implement random
-      //r = random(ROW_SIZE);
+      c = random(RAND_CYCLE);
+      r = random(ROW_SIZE);
       _nextPos++;
     } while (pix[c] & (1 << r) && _nextPos < 5000);
 
