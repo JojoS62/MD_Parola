@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 #include "MD_Parola_lib.h"
 #include "MD_MAX72xx.h"
 uint32_t millis() { 
-  return (uint32_t)rtos::Kernel::impl::get_tick_count();
+  return (uint32_t)get_ms_count();
 };
 #endif
 /**
