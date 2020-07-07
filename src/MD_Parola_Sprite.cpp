@@ -56,7 +56,7 @@ void MD_PZone::effectSprite(bool bIn, uint8_t id)
       _nextPos = ZONE_END_COL(_zoneEnd) + 1;
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:
@@ -116,7 +116,7 @@ void MD_PZone::effectSprite(bool bIn, uint8_t id)
       _posOffset = 0;
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:

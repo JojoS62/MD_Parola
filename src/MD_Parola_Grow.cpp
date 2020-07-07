@@ -42,7 +42,7 @@ void MD_PZone::effectGrow(bool bUp, bool bIn)
       _nextPos = (bUp ? 0xff : 1); // this is the bit mask
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:
@@ -89,7 +89,7 @@ void MD_PZone::effectGrow(bool bUp, bool bIn)
       _nextPos = (bUp ? 1 : 0xff);  // this is the bit mask
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:

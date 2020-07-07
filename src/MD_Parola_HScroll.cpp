@@ -64,7 +64,7 @@ void MD_PZone::effectHScroll(bool bLeft, bool bIn)
       _fsmState = PUT_CHAR;
       FSMPRINTS(", fall through");
       // !! fall through to next state to start displaying
-
+    // fall through
     case PUT_CHAR:  // display the next part of the character
       PRINT_STATE("I HSCROLL");
 

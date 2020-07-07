@@ -20,12 +20,10 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#ifndef __MBED__
 #include <MD_Parola.h>
 #include <MD_Parola_lib.h>
-#else
-#include "MD_Parola.h"
-#include "MD_Parola_lib.h"
+
+#ifdef __MBED__
 // Arduino function, missing in Mbed
 static long random( long howbig )
 {

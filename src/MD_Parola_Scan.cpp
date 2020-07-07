@@ -42,7 +42,7 @@ void MD_PZone::effectHScan(bool bIn, bool bBlank)
       setInitialEffectConditions();
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:
@@ -83,7 +83,7 @@ void MD_PZone::effectHScan(bool bIn, bool bBlank)
       setInitialEffectConditions();
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:
@@ -130,7 +130,7 @@ void MD_PZone::effectVScan(bool bIn, bool bBlank)
       _nextPos = 0; // this is the bit number
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:
@@ -174,7 +174,7 @@ void MD_PZone::effectVScan(bool bIn, bool bBlank)
       _nextPos = 7; // the bit number
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:

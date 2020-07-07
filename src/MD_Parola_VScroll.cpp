@@ -40,7 +40,7 @@ void MD_PZone::effectVScroll(bool bUp, bool bIn)
       _MX->control(_zoneStart, _zoneEnd, MD_MAX72XX::WRAPAROUND, MD_MAX72XX::OFF);
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:
@@ -78,7 +78,7 @@ void MD_PZone::effectVScroll(bool bUp, bool bIn)
       _nextPos = 0;
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:

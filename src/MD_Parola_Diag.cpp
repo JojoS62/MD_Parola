@@ -19,13 +19,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
-#ifndef __MBED__
 #include <MD_Parola.h>
 #include <MD_Parola_lib.h>
-#else
-#include "MD_Parola.h"
-#include "MD_Parola_lib.h"
-#endif
+
 /**
  * \file
  * \brief Implements diagonal scroll effect
@@ -44,7 +40,7 @@ void MD_PZone::effectDiag(bool bUp, bool bLeft, bool bIn)
       _MX->control(_zoneStart, _zoneEnd, MD_MAX72XX::WRAPAROUND, MD_MAX72XX::OFF);
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:
@@ -85,7 +81,7 @@ void MD_PZone::effectDiag(bool bUp, bool bLeft, bool bIn)
       _nextPos = 0;
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:

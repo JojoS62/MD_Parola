@@ -67,7 +67,7 @@ void MD_PZone::effectSlice(bool bIn)
       _countCols = 0;
       _fsmState = PUT_CHAR;
       // !! fall through to next state to start displaying
-
+    // fall through
     case PUT_CHAR:  // display the next part of the character
       PRINT_STATE("I SLICE");
       FSMPRINT(" - Next ", _endPos);

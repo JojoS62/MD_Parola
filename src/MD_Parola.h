@@ -397,12 +397,15 @@ takes about 1-2ms to update in the MD_MAX72XX display buffers.
 
 #ifndef __MBED__
 #include <Arduino.h>
+#endif
+
 #include <MD_MAX72xx.h>
-#else
+
+#ifdef __MBED__
 #include "mbed.h"
 #include "platform/Stream.h"
-#include "MD_MAX72xx.h"
 #endif
+
 /**
  * \file
  * \brief Main header file for the MD_Parola library

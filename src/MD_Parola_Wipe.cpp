@@ -41,7 +41,7 @@ void MD_PZone::effectWipe(bool bLightBar, bool bIn)
       setInitialEffectConditions();
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:
@@ -82,7 +82,7 @@ void MD_PZone::effectWipe(bool bLightBar, bool bIn)
       setInitialEffectConditions();
       _fsmState = PUT_CHAR;
       // fall through to next state
-
+    // fall through
     case GET_FIRST_CHAR:
     case GET_NEXT_CHAR:
     case PUT_CHAR:
