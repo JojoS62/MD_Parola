@@ -39,7 +39,8 @@ uint32_t millis() {
 MD_PZone::MD_PZone(void) :
 _suspend(false), _lastRunTime(0),
 _fsmState(END), _scrollDistance(0), _zoneEffect(0), _userChars(nullptr),
-_cBufSize(0), _cBuf(nullptr), _charSpacing(1), _fontDef(nullptr)
+_cBufSize(0), _cBuf(nullptr), _charSpacing(1), _fontDef(nullptr), 
+_pFB(nullptr), _fbSize(0), _pFbCursor(nullptr)
 #if ENA_SPRITE
 , _spriteInData(nullptr), _spriteOutData(nullptr)
 #endif
