@@ -859,12 +859,12 @@ public:
   inline void setTextBuffer(const char *pb) { _pText = (const uint8_t *)pb; }
 
 
-  inline void setFrameBuffer(char *fb, uint16_t fbSize) { _pFB = (uint8_t *)fb; _fbSize = fbSize; }
+  inline void setFrameBuffer(char *fb, uint16_t fbSize) { _pFB = (uint8_t *)fb; _fbSize = fbSize; _pFbCursor = _pFB;}
 
   inline int putc(int c) { 
-      if (_pFbCursor < (_pFB+_fbSize-1)) { 
+    if (_pFbCursor < (_pFB+_fbSize-1)) { 
       *_pFbCursor++ = c; 
-      *_pFbCursor++ = 0;
+      *_pFbCursor = 0;
     } 
     return c; 
   }
@@ -1714,6 +1714,10 @@ public:
    * \return No return value.
    */
   inline void setTextBuffer(const char *pb) { /*for (uint8_t i = 0; i<_numZones; i++) */_Z[0].setTextBuffer(pb); }
+
+
+  inline void setFrameBuffer(char *fb, uint16_t fbSize) { _Z[0].setFrameBuffer(fb, fbSize); }
+
 
   /**
    * Set the pointer to the text buffer for the specified zone.
