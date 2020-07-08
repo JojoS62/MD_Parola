@@ -858,6 +858,17 @@ public:
    */
   inline void setTextBuffer(const char *pb) { _pText = (const uint8_t *)pb; }
 
+
+  inline void setFrameBuffer(char *fb, uint16_t fbSize) { _pFB = (uint8_t *)fb; _fbSize = fbSize; }
+
+  inline int putc(int c) { 
+      if (_pFbCursor < (_pFB+_fbSize-1)) { 
+      *_pFbCursor++ = c; 
+      *_pFbCursor++ = 0;
+    } 
+    return c; 
+  }
+
   /**
    * Set the entry and exit text effects for the zone.
    *
@@ -1058,6 +1069,11 @@ private:
   uint8_t   makeChar(uint16_t c, bool addBlank);  // load a character bitmap and add in trailing _charSpacing blanks if req'd
   void      reverseBuf(uint8_t *p, uint8_t size); // reverse the elements of the buffer
   void      invertBuf(uint8_t *p, uint8_t size);  // invert the elements of the buffer
+
+  // optional Framebuffer
+  uint8_t *_pFB;              // pointer to frame buffer from user call
+  uint16_t _fbSize;           // frame buffer size
+  uint8_t *_pFbCursor;        // frame buffer write cursor
 
   /// Sprite management
 #if ENA_SPRITE
@@ -1985,8 +2001,8 @@ public:
   virtual size_t write(const uint8_t *buffer, size_t size);
 
   #ifdef __MBED__
-  virtual int _putc(int c) { write((uint8_t)c); return c; };
-  virtual int _getc() { return 0; };
+  virtual int _putc(int c) { return _Z[0].putc(c); };
+  virtual int _getc() { return -1; };
   #endif
 
   /** @} */
