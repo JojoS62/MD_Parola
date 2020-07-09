@@ -856,16 +856,31 @@ public:
    * \param pb  pointer to the text buffer to be used.
    * \return No return value.
    */
-  inline void setTextBuffer(const char *pb) { _pText = (const uint8_t *)pb; }
+  inline void setTextBuffer(const char *pb) { 
+    _pText = (const uint8_t *)pb;
+
+    // if the framebuffer is used, copy text to framebuffer
+    // and use framebuffer for display
+    if (_pFB != nullptr) {
+      strncpy((char*)_pFB, pb, _fbSize);    // copy and cut if text is too long for buffer
+      _pText = _pFB;
+    } 
+  }
 
 
-  inline void setFrameBuffer(char *fb, uint16_t fbSize) { _pFB = (uint8_t *)fb; _fbSize = fbSize; _pFbCursor = _pFB;}
+  inline void setFrameBuffer(char *fb, uint16_t fbSize) { _pFB = (uint8_t *)fb; _fbSize = fbSize; _pFbCursor = _pFB; }
+  inline void setWriteCursor(uint8_t xPos) { _pFbCursor = (xPos < _fbSize) ? _pFB + xPos : _pFB + _fbSize - 1; }
 
   inline int putc(int c) { 
-    if (_pFbCursor < (_pFB+_fbSize-1)) { 
-      *_pFbCursor++ = c; 
-      *_pFbCursor = 0;
-    } 
+    if (c == '/n' || c == '/r') {
+      setWriteCursor(0);
+      zoneReset();
+    } else {
+      if (_pFbCursor < (_pFB+_fbSize-1)) { 
+        *_pFbCursor++ = c; 
+        *_pFbCursor = 0;
+      } 
+    }
     return c; 
   }
 
@@ -1717,6 +1732,8 @@ public:
 
 
   inline void setFrameBuffer(char *fb, uint16_t fbSize) { _Z[0].setFrameBuffer(fb, fbSize); }
+  inline void setWriteCursor(uint8_t z, uint8_t xPos) { if (z < _numZones) _Z[z].setWriteCursor(xPos); }
+
 
 
   /**
