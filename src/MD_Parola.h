@@ -872,7 +872,7 @@ public:
   inline void setWriteCursor(uint8_t xPos) { _pFbCursor = (xPos < _fbSize) ? _pFB + xPos : _pFB + _fbSize - 1; }
 
   inline int putc(int c) { 
-    if (c == '/n' || c == '/r') {
+    if (c == '\n' || c == '\r') {
       setWriteCursor(0);
       zoneReset();
     } else {
