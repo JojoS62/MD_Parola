@@ -581,6 +581,7 @@ bool MD_PZone::zoneAnimate(void)
   }
 
 #if  TIME_PROFILING
+#ifndef __MBED__
   Serial.print("\nAnim time: ");
   Serial.print(millis() - _lastRunTime);
   if (_fsmState == END)
@@ -588,13 +589,20 @@ bool MD_PZone::zoneAnimate(void)
     Serial.print("\nCycle time: ");
     Serial.print(millis() - cycleStartTime);
   }
+#else
+  debug("\nAnim time: %d", millis() - _lastRunTime);
+  if (_fsmState == END)
+  {
+    debug("\nCycle time: %d", millis() - cycleStartTime);
+  }
+#endif
 #endif
 
   return(_fsmState == END);
 }
 
 #if DEBUG_PAROLA_FSM
-char *MD_PZone::state2string(fsmState_t s)
+const char *MD_PZone::state2string(fsmState_t s)
 {
   switch (s)
   {
