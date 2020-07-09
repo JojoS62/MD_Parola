@@ -1,6 +1,10 @@
 
 #pragma once
 
+#ifdef __MBED__
+#include "mbed_debug.h"
+#endif
+
 /**
  * \file
  * \brief Contains internal library definitions
@@ -11,20 +15,33 @@
 #define TIME_PROFILING    0 ///< Set to 1 to enable Time Profile debug output
 
 #if  DEBUG_PAROLA
-#define PRINT(s, v) { Serial.print(F(s)); Serial.print(v); }    ///< (GENERAL) Print a string followed by a value (decimal)
-#define PRINTX(s, v) { Serial.print(F(s)); Serial.print(v, HEX); }  ///< (GENERAL) Print a string followed by a value (hex)
-#define PRINTS(s) Serial.print(F(s))    ///< (GENERAL) Print a string
+#  ifndef __MBED__
+#    define PRINT(s, v) { Serial.print(F(s)); Serial.print(v); }    ///< (GENERAL) Print a string followed by a value (decimal)
+#    define PRINTX(s, v) { Serial.print(F(s)); Serial.print(v, HEX); }  ///< (GENERAL) Print a string followed by a value (hex)
+#    define PRINTS(s) Serial.print(F(s))    ///< (GENERAL) Print a string
+#  else // Mbed, use mbed_debug functions
+#    define PRINT(s, v)  { debug("%s%d", s, v); }    ///< (GENERAL) Print a string followed by a value (decimal)
+#    define PRINTX(s, v) { debug("%s%x", s, v); }  ///< (GENERAL) Print a string followed by a value (hex)
+#    define PRINTS(s) { debug(s); }   ///< (GENERAL) Print a string
+#  endif
 #else
-#define PRINT(s, v)   ///< (GENERAL) Print a string followed by a value (decimal)
-#define PRINTX(s, v)  ///< (GENERAL) Print a string followed by a value (hex)
-#define PRINTS(s)     ///< (GENERAL) Print a string
+#  define PRINT(s, v)   ///< (GENERAL) Print a string followed by a value (decimal)
+#  define PRINTX(s, v)  ///< (GENERAL) Print a string followed by a value (hex)
+#  define PRINTS(s)     ///< (GENERAL) Print a string
 #endif
 
 #if  DEBUG_PAROLA_FSM
-#define FSMPRINT(s, v) { Serial.print(F(s)); Serial.print(v); }   ///< (FSM) Print a string followed by a value (decimal)
-#define FSMPRINTX(s, v) { Serial.print(F(s)); Serial.print(v, HEX); } ///< (FSM) Print a string followed by a value (hex)
-#define FSMPRINTS(s) Serial.print(F(s)) ///< (FSM) Print a string
-#define PRINT_STATE(f) { Serial.print(F("\n")); Serial.print(F(f)); Serial.print(F(" fsm ")); Serial.print(state2string(_fsmState)); } ///< (FSM) Print the current FSM state information
+#  ifndef __MBED__
+#    define FSMPRINT(s, v) { Serial.print(F(s)); Serial.print(v); }   ///< (FSM) Print a string followed by a value (decimal)
+#    define FSMPRINTX(s, v) { Serial.print(F(s)); Serial.print(v, HEX); } ///< (FSM) Print a string followed by a value (hex)
+#    define FSMPRINTS(s) Serial.print(F(s)) ///< (FSM) Print a string
+#    define PRINT_STATE(f) { Serial.print(F("\n")); Serial.print(F(f)); Serial.print(F(" fsm ")); Serial.print(state2string(_fsmState)); } ///< (FSM) Print the current FSM state information
+#  else // Mbed, use mbed_debug functions
+#    define FSMPRINT(s, v) { debug("%s%d", s, v); }   ///< (FSM) Print a string followed by a value (decimal)
+#    define FSMPRINTX(s, v) { debug("%s%x", s, v); } ///< (FSM) Print a string followed by a value (hex)
+#    define FSMPRINTS(s) { debug(s); } ///< (FSM) Print a string
+#    define PRINT_STATE(f) { debug("\n%s fsm %s", f, state2string(_fsmState)); }  ///< (FSM) Print the current FSM state information
+#  endif
 #else
 #define FSMPRINT(s, v)  ///< (FSM) Print a string followed by a value (decimal)
 #define FSMPRINTX(s, v) ///< (FSM) Print a string followed by a value (hex)
