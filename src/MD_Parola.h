@@ -877,7 +877,9 @@ public:
       zoneReset();
     } else {
       if (_pFbCursor < (_pFB+_fbSize-1)) { 
-        *_pFbCursor++ = c; 
+        if (c != 0) {
+          *_pFbCursor++ = c; 
+        }
         *_pFbCursor = 0;
       } 
     }
